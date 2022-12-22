@@ -9,8 +9,10 @@
 <html>
 <head>
     <title>page 1</title>
+    <%@ include file="head.jsp" %>
 </head>
 <body>
+<%@ include file="navbar.jsp" %>
 <p>il mio nome è ${varNome}</p>
 </body>
 </html>
