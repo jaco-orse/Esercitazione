@@ -11,11 +11,11 @@ public class page1_Servlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String newPag = "page1.jsp";
+        String newPag = "/page1.jsp";
         String nome = "Jacopo";
         request.setAttribute("varNome", nome);
 
-        RequestDispatcher view = request.getRequestDispatcher(newPag);
+        RequestDispatcher view = request.getServletContext().getRequestDispatcher(newPag);
         view.forward(request,response);
 
     }
