@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>JSP - HOME</title>
     <!-- css -->
     <jsp:include  page="head.jsp"></jsp:include>
 </head>
@@ -15,10 +15,17 @@
     <br/>
     <a href="page1_Servlet">page servlet num 1</a>
     <br><br>
+
+    <!-- simula login -->
+    <p>Log-in:</p>
     <form action="page2_Servlet" method="post">
-        <labe>NOME</labe>
+        <labe>nome</labe>
         <input type="text" name="name_input">
+        <labe>password</labe>
+        <input type="password" name="pw_input">
         <input type="submit" value="invia">
     </form>
+    ${logged}
+    <jsp:include  page="footer.jsp"></jsp:include>
 </body>
 </html>

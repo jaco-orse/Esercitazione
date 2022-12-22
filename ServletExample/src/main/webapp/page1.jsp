@@ -14,5 +14,6 @@
 <body>
     <%@ include file="header.jsp" %>
     <p>il mio nome è ${varNome}</p>
-    </body>
+    <%@ include file="footer.jsp" %>
+</body>
 </html>

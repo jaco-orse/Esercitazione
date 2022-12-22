@@ -13,6 +13,7 @@
 </head>
 <body>
 <%@ include file="header.jsp" %>
-<p>il nome passato nella form è ${varNome}</p>
+<p>Loggato come ${varNome}</p>
+<%@ include file="footer.jsp" %>
 </body>
 </html>

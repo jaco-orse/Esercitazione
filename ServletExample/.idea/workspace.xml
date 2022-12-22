@@ -10,14 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="01a044ba-e604-4bf1-a2b0-90b127a68079" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/it/course/servletexample/page2_Servlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/footer.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/page2.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/course/servletexample/page1_Servlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/course/servletexample/page1_Servlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/it/course/servletexample/page2_Servlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/course/servletexample/page2_Servlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/footer.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/footer.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/navbar.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/header.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/page1.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/page1.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/page2.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/page2.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +69,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\NTTacademy\git_repository\Esercitazione\ServletExample\src\main\webapp" />
+    </key>
+  </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 10.0.271">
     <configuration name="index.jsp" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:8080/ServletExample_war_exploded/index.jsp">
       <method v="2" />
@@ -128,7 +131,7 @@
       <option name="presentableId" value="Default" />
       <updated>1671621342585</updated>
       <workItem from="1671621343982" duration="7198000" />
-      <workItem from="1671698339406" duration="5067000" />
+      <workItem from="1671698339406" duration="7543000" />
     </task>
     <servers />
   </component>
