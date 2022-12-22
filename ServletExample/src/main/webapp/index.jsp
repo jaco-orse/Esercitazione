@@ -27,5 +27,13 @@
     </form>
     ${logged}
     <jsp:include  page="footer.jsp"></jsp:include>
+
+    <br/><br/>
+    <form action="getStudente" method="get">
+        <labe>nome studente da cercare</labe>
+        <input type="text" name="name_input">
+        <input type="submit" value="invia">
+    </form>
+
 </body>
 </html>
