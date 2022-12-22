@@ -11,6 +11,6 @@
     <title>Inserito</title>
 </head>
 <body>
-  <h1>Utente Inserito</h1>
+  <h1>Utente Inserito o Eliminato</h1>
 </body>
 </html>

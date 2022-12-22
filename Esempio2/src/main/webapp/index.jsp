@@ -10,5 +10,6 @@
 <br/>
 <a href="hello-servlet">Hello Servlet</a>
 <a href="ServletInserUser">ServletInserUser</a>
+<a href="ServletDeleteUser">ServletDeleteUser</a>
 </body>
 </html>

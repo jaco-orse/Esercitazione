@@ -10,11 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="099df6c0-2b06-4fa9-b6f2-816ae2f48684" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/it/corso/esempiopagine/esempio2/controller/ServletDeleteUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/it/corso/esempiopagine/esempio2/controller/ServletInserUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/corso/esempiopagine/esempio2/controller/ServletInserUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/corso/esempiopagine/esempio2/dao/UserDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/corso/esempiopagine/esempio2/dao/UserDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/it/corso/esempiopagine/esempio2/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/it/corso/esempiopagine/esempio2/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/user-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/user-form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/index.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/index.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/userInserito.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/userInseritoEliminato.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,7 +31,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -121,7 +122,7 @@
       <option name="presentableId" value="Default" />
       <updated>1671711096795</updated>
       <workItem from="1671711097899" duration="5590000" />
-      <workItem from="1671720164593" duration="2525000" />
+      <workItem from="1671720164593" duration="4613000" />
     </task>
     <servers />
   </component>
