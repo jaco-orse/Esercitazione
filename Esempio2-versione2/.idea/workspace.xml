@@ -10,8 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="099df6c0-2b06-4fa9-b6f2-816ae2f48684" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/user-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/user-form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Esempio2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Esempio2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Esempio2/src/main/webapp/user-form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/../Esempio2/src/main/webapp/user-form.jsp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +118,8 @@
       <option name="presentableId" value="Default" />
       <updated>1671711096795</updated>
       <workItem from="1671711097899" duration="5590000" />
-      <workItem from="1671720164593" duration="5729000" />
+      <workItem from="1671720164593" duration="5332000" />
+      <workItem from="1671783825377" duration="343000" />
     </task>
     <servers />
   </component>
