@@ -38,7 +38,7 @@
                 <td><c:out value = "${user.getEmail()}" /></td>
                 <td><c:out value = "${user.getCountry()}" /></td>
                 <td><c:out value = "${user.getEta()}" /> </td>
-                <td><a href="ServletDeleteUser?id=${user.getId()}">DEL</a></td>
+                <td><a href="ServletDeleteUser?id=${user.getId()}">DEL</a>  <a href="ServletUpdateUser?id=${user.getId()}">UPD</a></td>
             </tr>
         </c:forEach>
     </tbody>

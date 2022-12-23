@@ -13,10 +13,10 @@ public class UserDAO {
 
     private static final String INSERT_USERS_SQL = "INSERT INTO user (name, email, country, eta) VALUES  (?, ?, ?, ?);";
 
-    private static final String SELECT_USER_BY_ID = "select id,name,email,country from users where id =?";
+    private static final String SELECT_USER_BY_ID = "select id,name,email,country,eta from user where id =?";
     private static final String SELECT_ALL_USERS = "select * from user";
     private static final String DELETE_USERS_SQL = "delete from user where id = ?;";
-    private static final String UPDATE_USERS_SQL = "update user set name = ?,email= ?, country =? where id = ?;";
+    private static final String UPDATE_USERS_SQL = "update user set name = ?,email= ?, country =?, eta=? where id = ?;";
 
     public UserDAO() {
     }
@@ -62,6 +62,7 @@ public class UserDAO {
                 String country = rs.getString("country");
                 String eta = rs.getString("eta");
                 user = new User(id, name, email, country, eta);
+                System.out.println("done");
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -120,7 +121,8 @@ public class UserDAO {
             statement.setString(1, user.getName());
             statement.setString(2, user.getEmail());
             statement.setString(3, user.getCountry());
-            statement.setInt(4, user.getId());
+            statement.setInt(5, user.getId());
+            statement.setInt(4, user.getEta());
 
             rowUpdated = statement.executeUpdate() > 0;
         } catch (ClassNotFoundException e) {
