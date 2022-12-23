@@ -13,7 +13,7 @@ public class JacoController {
 
     @GetMapping("/hiJaco")
     public ResponseEntity<String> hiJaco(){
-        String message = "Il mio nome è Jaco";
+        String message = "Jaco";
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
@@ -22,7 +22,7 @@ public class JacoController {
     @GetMapping("/hiJaco2")
     public ResponseEntity<Map<String,String>> hiJaco2 (){
         Map <String,String> value = new HashMap();
-        value.put("Message","AUGURI");
+        value.put("name","Jaco");
         return new ResponseEntity<>(value, HttpStatus.OK);
     }
 
