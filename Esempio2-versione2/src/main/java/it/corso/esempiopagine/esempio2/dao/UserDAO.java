@@ -60,7 +60,8 @@ public class UserDAO {
                 String name = rs.getString("name");
                 String email = rs.getString("email");
                 String country = rs.getString("country");
-                user = new User(id, name, email, country);
+                String eta = rs.getString("eta");
+                user = new User(id, name, email, country, eta);
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -89,7 +90,8 @@ public class UserDAO {
                 String name = rs.getString("name");
                 String email = rs.getString("email");
                 String country = rs.getString("country");
-                users.add(new User(id, name, email, country));
+                String eta = rs.getString("eta");
+                users.add(new User(id, name, email, country, eta));
             }
         } catch (SQLException e) {
             printSQLException(e);

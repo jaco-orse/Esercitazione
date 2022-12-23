@@ -7,32 +7,34 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import java.util.List;
 
-@WebServlet(name = "ServletDeleteUser", value = "/ServletDeleteUser")
-public class ServletDeleteUser extends HttpServlet {
+@WebServlet(name = "ServletShowAllUser", value = "/ServletShowAllUser")
+public class ServletShowAllUser extends HttpServlet {
+
     private UserDAO userDAO;
     public void init() {
         userDAO = new UserDAO();
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user-delete-form.jsp");
-        dispatcher.forward(request, response);
-    }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        int id =Integer.parseInt(request.getParameter("id"));
+        List<User> listaUtenti;
         try {
-            userDAO.deleteUser(id);
-            response.sendRedirect("userInseritoEliminato.jsp");
+            listaUtenti = userDAO.selectAllUsers();
+            request.setAttribute("listaUtenti",listaUtenti);
+            //response.sendRedirect("userlist.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("userlist.jsp");
+            dispatcher.forward(request, response);
         } catch (Exception e) {
             response.sendRedirect("error.jsp");
             //throw new RuntimeException(e);
         }
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 }

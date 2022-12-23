@@ -17,6 +17,7 @@
       <li><a href="<%=request.getContextPath()%>/" class="nav-link ${param.home}">home</a></li>
       <li><a href="ServletInserUser" class="nav-link ${param.insert}">ServletInserUser</a></li>
       <li><a href="ServletDeleteUser" class="nav-link ${param.delete}">ServletDeleteUser</a></li>
+      <li><a href="ServletShowAllUser" class="nav-link ${param.showAll}">ServletShowAllUser</a></li>
     </ul>
   </nav>
 </header>
