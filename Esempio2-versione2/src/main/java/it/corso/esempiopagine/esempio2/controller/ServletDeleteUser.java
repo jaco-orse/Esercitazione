@@ -27,9 +27,11 @@ public class ServletDeleteUser extends HttpServlet {
         int id =Integer.parseInt(request.getParameter("id"));
         try {
             userDAO.deleteUser(id);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            response.sendRedirect("userInseritoEliminato.jsp");
+        } catch (Exception e) {
+            response.sendRedirect("error.jsp");
+            //throw new RuntimeException(e);
         }
-        response.sendRedirect("userInseritoEliminato.jsp");
+
     }
 }

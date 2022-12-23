@@ -30,11 +30,10 @@ public class ServletInserUser extends HttpServlet {
         User newUser = new User(name, email, country, eta);
         try {
             userDAO.insertUser(newUser);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            response.sendRedirect("userInseritoEliminato.jsp");
+        } catch (Exception e) {
+            response.sendRedirect("error.jsp");
         }
-        response.sendRedirect("userInseritoEliminato.jsp");
+
     }
 }
