@@ -17,9 +17,13 @@ public class ServletDeleteUser extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        RequestDispatcher dispatcher = request.getRequestDispatcher("user-delete-form.jsp");
-        dispatcher.forward(request, response);
+        if(request.getParameter("id") != null){
+            doPost(request,response);
+        }
+        else{
+            RequestDispatcher dispatcher = request.getRequestDispatcher("user-delete-form.jsp");
+            dispatcher.forward(request, response);
+        }
     }
 
     @Override
@@ -28,7 +32,7 @@ public class ServletDeleteUser extends HttpServlet {
         int id =Integer.parseInt(request.getParameter("id"));
         try {
             userDAO.deleteUser(id);
-            response.sendRedirect("userInseritoEliminato.jsp");
+            response.sendRedirect("ServletShowAllUser");
         } catch (Exception e) {
             response.sendRedirect("error.jsp");
             //throw new RuntimeException(e);

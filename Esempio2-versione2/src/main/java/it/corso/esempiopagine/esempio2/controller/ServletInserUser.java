@@ -30,7 +30,7 @@ public class ServletInserUser extends HttpServlet {
         User newUser = new User(name, email, country, eta);
         try {
             userDAO.insertUser(newUser);
-            response.sendRedirect("userInseritoEliminato.jsp");
+            response.sendRedirect("ServletShowAllUser");
         } catch (Exception e) {
             response.sendRedirect("error.jsp");
         }
