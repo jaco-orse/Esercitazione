@@ -21,10 +21,9 @@ public class StudentController {
         List<Student> studentArrayList = new ArrayList<Student>();
         studentRepository.findAll().forEach(studentArrayList::add);
         if (studentArrayList.isEmpty()) {
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-
-    return new ResponseEntity<>(studentArrayList, HttpStatus.OK);
+        return new ResponseEntity<>(studentArrayList, HttpStatus.OK);
     }
 
     @PostMapping("/student")
@@ -36,7 +35,6 @@ public class StudentController {
     @DeleteMapping("/student/{id}")
     public ResponseEntity<HttpStatus> deleteStudent(@PathVariable("id") long id) {
         studentRepository.deleteById(id);
-
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
