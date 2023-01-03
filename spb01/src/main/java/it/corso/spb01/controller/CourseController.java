@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/controllerCourse")
@@ -26,6 +27,15 @@ public class CourseController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(studentArrayList, HttpStatus.OK);
+    }
+
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<Optional<Course>> getCourseById(@PathVariable("id") long id) {
+        Optional<Course> curr = courseRepository.findById(id);
+        if(curr.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<Optional<Course>>(curr, HttpStatus.OK);
     }
 
     @PostMapping("/insert")
