@@ -34,11 +34,20 @@ public class CourseController {
         return new ResponseEntity<>(_corso, HttpStatus.CREATED);
     }
 
-   // @DeleteMapping("/student/{id}")
-   // public ResponseEntity<HttpStatus> deleteStudent(@PathVariable("id") long id) {
-   //     studentRepository.deleteById(id);
-   //     return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-   // }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<HttpStatus> deleteCoure(@PathVariable("id") long id) {
+        courseRepository.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Course> updateCourse(@PathVariable("id") long id, @RequestBody Course newCourse) throws Exception {
+        Course currCourse = courseRepository.findById(id).orElseThrow(() -> new Exception("TagId " + id + "not found"));
+        currCourse.setName(newCourse.getName());
+        return new ResponseEntity<>(courseRepository.save(currCourse), HttpStatus.OK);
+    }
+
+
 
 
 
