@@ -32,9 +32,9 @@ public class CourseController {
     @GetMapping("/getById/{id}")
     public ResponseEntity<Optional<Course>> getCourseById(@PathVariable("id") long id) {
         Optional<Course> curr = courseRepository.findById(id);
-        if(curr.isEmpty()){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+        //if(curr.isEmpty()){
+          //  return new ResponseEntity<Optional<Course>>(HttpStatus.NO_CONTENT);
+       // }
         return new ResponseEntity<Optional<Course>>(curr, HttpStatus.OK);
     }
 
