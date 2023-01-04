@@ -1,9 +1,11 @@
 package it.corso.spb01.controller;
 
 
+import it.corso.spb01.model.Ruolo;
 import it.corso.spb01.model.User;
 import it.corso.spb01.model.Course;
 import it.corso.spb01.repository.CourseRepository;
+import it.corso.spb01.repository.RuoloRepository;
 import it.corso.spb01.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,8 @@ public class UserController {
     UserRepository userRepository;
     @Autowired
     CourseRepository courseRepository;
+    @Autowired
+    RuoloRepository roleRepository;
 
 
     @GetMapping("/getAll")
@@ -78,6 +82,41 @@ public class UserController {
         }
         courseArrayList = choosenUser.getCourses();
         return new ResponseEntity<>(courseArrayList, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/getRoles/{userId}")
+    public ResponseEntity<Set<Ruolo>> getRoles(@PathVariable(value = "userId") Long userId){
+        Set<Ruolo> roleArrayList;
+        User choosenUser = userRepository.findById(userId).orElse(null);
+        if (choosenUser == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        roleArrayList = choosenUser.getRoles();
+        return new ResponseEntity<>(roleArrayList, HttpStatus.OK);
+    }
+
+    @PostMapping("/insertRoleToUser/{userId}")
+    public ResponseEntity<User> addCourse(@PathVariable(value = "userId") Long userId, @RequestBody Ruolo role) {
+
+
+        //System.out.println(role.getId());
+
+        Ruolo r = roleRepository.findById(role.getId()).orElse(null);
+        User choosenUser = userRepository.findById(userId).orElse(null);
+
+        //System.out.println(r.getName().toString());
+
+        if( r != null && choosenUser != null){
+            choosenUser.addRole(r);
+
+            User newU =  userRepository.save(choosenUser);
+
+
+            return new ResponseEntity<>(newU,HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 

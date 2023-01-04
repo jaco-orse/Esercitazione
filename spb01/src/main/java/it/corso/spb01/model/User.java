@@ -72,8 +72,13 @@ public class User {
     @JsonIgnore
     private Set<Ruolo> roles = new HashSet<>();
 
+    public void addRole(Ruolo r) {
+        this.roles.add(r);
+    }
 
     //metodi
+    public Set<Ruolo> getRoles(){ return this.roles; }
+
     public Set<Course> getCourses(){ return this.courses; }
 
     public void addCourse(Course c) {
