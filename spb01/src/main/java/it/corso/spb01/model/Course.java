@@ -20,7 +20,11 @@ public class Course {
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
-                    CascadeType.ALL
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.REMOVE
             })
     @JoinTable(name = "user_course",
             joinColumns = { @JoinColumn(name = "course_id") },
@@ -49,7 +53,7 @@ public class Course {
     }
     public void addUser(User u){
         this.users.add(u);
-        u.addCourse(this);
+        //u.addCourse(this);
     }
     public void removeUser(long userID){
         User u = this.users.stream().filter(t -> t.getId() == userID).findFirst().orElse(null);

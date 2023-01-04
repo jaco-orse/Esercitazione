@@ -2,6 +2,8 @@ package it.corso.spb01.controller;
 
 
 import it.corso.spb01.model.User;
+import it.corso.spb01.model.Course;
+import it.corso.spb01.repository.CourseRepository;
 import it.corso.spb01.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/controllerUser")
@@ -17,6 +20,8 @@ public class UserController {
 
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    CourseRepository courseRepository;
 
 
     @GetMapping("/getAll")
@@ -41,4 +46,29 @@ public class UserController {
         userRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+
+
+    //add course to user
+    @PostMapping("/insertCourse/{userId}/{courseId}")
+    public ResponseEntity<User> addCourse(@PathVariable(value = "userId") Long userId, @PathVariable(value = "courseId") Long courseId) {
+        //prendi corso by id
+        Course courseToAdd = courseRepository.findById(courseId).orElse(null);
+        User choosenUser = userRepository.findById(userId).orElse(null);
+
+        System.out.println("corso" + courseToAdd.toString());
+        System.out.println("user" + choosenUser.toString());
+
+        if( courseToAdd != null && choosenUser != null){
+            choosenUser.addCourse(courseToAdd);
+            //courseToAdd.addUser(choosenUser);
+
+
+            userRepository.save(choosenUser);
+            return new ResponseEntity<>(choosenUser, HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

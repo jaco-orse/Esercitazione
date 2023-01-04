@@ -44,7 +44,11 @@ public class User {
 
     @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
-                    CascadeType.ALL
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.PERSIST,
+                    CascadeType.REFRESH,
+                    CascadeType.REMOVE
             })
     @JoinTable(name = "user_course",
             joinColumns = { @JoinColumn(name = "user_id") },
@@ -58,7 +62,7 @@ public class User {
 
     public void addCourse(Course c) {
         this.courses.add(c);
-        c.addUser(this);
+        //c.addUser(this);
     }
 
     public void removeCourse(long courseID) {
