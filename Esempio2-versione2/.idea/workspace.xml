@@ -11,6 +11,7 @@
   <component name="ChangeListManager">
     <list default="true" id="099df6c0-2b06-4fa9-b6f2-816ae2f48684" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../spb01/src/main/java/it/corso/spb01/controller/CourseController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../spb01/src/main/java/it/corso/spb01/controller/CourseController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +58,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/NTTacademy/git_repository/Esercitazione/Esempio2-versione2",
+    "last_opened_file_path": "D:/NTTacademy/git_repository/Esercitazione/SpringDataRest",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -119,6 +120,9 @@
       <workItem from="1671711097899" duration="5590000" />
       <workItem from="1671720164593" duration="5332000" />
       <workItem from="1671783825377" duration="12158000" />
+      <workItem from="1672782015825" duration="1025000" />
+      <workItem from="1672783491332" duration="92000" />
+      <workItem from="1672820457006" duration="167000" />
     </task>
     <servers />
   </component>
