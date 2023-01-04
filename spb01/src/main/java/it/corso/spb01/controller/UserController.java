@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/controllerUser")
@@ -56,19 +57,30 @@ public class UserController {
         Course courseToAdd = courseRepository.findById(courseId).orElse(null);
         User choosenUser = userRepository.findById(userId).orElse(null);
 
-        System.out.println("corso" + courseToAdd.toString());
-        System.out.println("user" + choosenUser.toString());
-
         if( courseToAdd != null && choosenUser != null){
             choosenUser.addCourse(courseToAdd);
             //courseToAdd.addUser(choosenUser);
 
-
+            //courseRepository.save(courseToAdd);
             userRepository.save(choosenUser);
-            return new ResponseEntity<>(choosenUser, HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @GetMapping("/getCourses/{userId}")
+    public ResponseEntity<Set<Course>> getCourses (@PathVariable(value = "userId") Long userId){
+        Set<Course> courseArrayList;
+        User choosenUser = userRepository.findById(userId).orElse(null);
+        if (choosenUser == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        courseArrayList = choosenUser.getCourses();
+        return new ResponseEntity<>(courseArrayList, HttpStatus.OK);
+    }
+
+
+
 
 }

@@ -1,6 +1,7 @@
 package it.corso.spb01.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -53,6 +54,7 @@ public class User {
     @JoinTable(name = "user_course",
             joinColumns = { @JoinColumn(name = "user_id") },
             inverseJoinColumns = { @JoinColumn(name = "course_id") })
+    @JsonIgnore
     private Set<Course> courses = new HashSet<>();
 
 

@@ -1,5 +1,6 @@
 package it.corso.spb01.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -18,17 +19,8 @@ public class Course {
     private String name;
 
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.DETACH,
-                    CascadeType.MERGE,
-                    CascadeType.PERSIST,
-                    CascadeType.REFRESH,
-                    CascadeType.REMOVE
-            })
-    @JoinTable(name = "user_course",
-            joinColumns = { @JoinColumn(name = "course_id") },
-            inverseJoinColumns = { @JoinColumn(name = "user_id") })
+    @ManyToMany(mappedBy = "courses")
+    @JsonIgnore
     private Set<User> users = new HashSet<User>();
 
     public Course(){}
