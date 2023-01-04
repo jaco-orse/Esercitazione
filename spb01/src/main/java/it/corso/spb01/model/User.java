@@ -58,6 +58,20 @@ public class User {
     private Set<Course> courses = new HashSet<>();
 
 
+    @ManyToMany(fetch = FetchType.LAZY,
+               cascade = {
+        CascadeType.DETACH,
+                CascadeType.MERGE,
+                CascadeType.PERSIST,
+                CascadeType.REFRESH,
+                CascadeType.REMOVE
+    })
+    @JoinTable(name = "user_ruolo",
+            joinColumns = { @JoinColumn(name = "user_id") },
+            inverseJoinColumns = { @JoinColumn(name = "role_id") })
+    @JsonIgnore
+    private Set<Ruolo> roles = new HashSet<>();
+
 
     //metodi
     public Set<Course> getCourses(){ return this.courses; }
