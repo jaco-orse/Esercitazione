@@ -58,6 +58,8 @@ public class User {
     private Set<Course> courses = new HashSet<>();
 
 
+    @Getter
+    @Setter
     @ManyToMany(fetch = FetchType.LAZY,
                cascade = {
         CascadeType.DETACH,
@@ -71,6 +73,16 @@ public class User {
             inverseJoinColumns = { @JoinColumn(name = "role_id") })
     @JsonIgnore
     private Set<Ruolo> roles = new HashSet<>();
+
+    public User(String username, String email, String password) {
+        this.name = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    public User() {
+
+    }
 
     public void addRole(Ruolo r) {
         this.roles.add(r);
@@ -95,6 +107,9 @@ public class User {
     }
 
 
+    public String getUsername() {
+        return this.name;
+    }
 
 
 }
