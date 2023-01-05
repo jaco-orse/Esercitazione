@@ -10,6 +10,7 @@ import it.corso.spb01.payload.response.MessageResponse;
 import it.corso.spb01.repository.CourseRepository;
 import it.corso.spb01.repository.RuoloRepository;
 import it.corso.spb01.repository.UserRepository;
+import it.corso.spb01.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,11 +29,13 @@ public class UserController {
     @Autowired
     RuoloRepository roleRepository;
 
+    @Autowired
+    UserService userService;
 
-    @GetMapping("/getAll")
+
+    @GetMapping("/getAll") //UTILIZZA USER SERVICE
     public ResponseEntity<List<User>> getUsers (){
-        List<User> uArrayList = new ArrayList<User>();
-        userRepository.findAll().forEach(uArrayList::add);
+        List<User> uArrayList = userService.getUsers();
         if (uArrayList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -96,37 +99,15 @@ public class UserController {
     }
 
     @PostMapping("/insertRole2/{userId}")
-    public ResponseEntity<?> addRole2(@PathVariable(value = "userId") Long userId, @RequestBody SignupRequest signUpRequest) {
+    public ResponseEntity<?> addRole2(@PathVariable(value = "userId") Long userId, @RequestBody SignupRequest signUpRequest) throws Exception {
 
-        User user = userRepository.findById(userId).orElse(null);
-        //System.out.println(r.getName().toString());
+        User user = userService.getUserById(userId);
         if( user == null){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         Set<String> strRoles = signUpRequest.getRole();
-        Set<Ruolo> roles = new HashSet<>();
-        strRoles.forEach(role -> {
-                    switch (role) {
-                        case "admin":
-                            Ruolo adminRole = roleRepository.findByName(enumRuolo.ROLE_ADMIN)
-                                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                            roles.add(adminRole);
+        userService.setUserRoles(user,strRoles);
 
-                            break;
-                        case "mod":
-                            Ruolo modRole = roleRepository.findByName(enumRuolo.ROLE_MODERATOR)
-                                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                            roles.add(modRole);
-
-                            break;
-                        default:
-                            Ruolo userRole = roleRepository.findByName(enumRuolo.ROLE_USER)
-                                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                            roles.add(userRole);
-                    }
-                });
-        user.setRoles(roles);
-        userRepository.save(user);
         return ResponseEntity.ok(new MessageResponse("oook"));
 
     }
