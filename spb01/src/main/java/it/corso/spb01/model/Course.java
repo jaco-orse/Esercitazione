@@ -23,6 +23,10 @@ public class Course {
     @JsonIgnore
     private Set<User> users = new HashSet<User>();
 
+
+    @OneToMany(mappedBy="course")
+    private Set<Esame> esami;
+
     public Course(){}
 
 

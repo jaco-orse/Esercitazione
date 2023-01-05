@@ -3,9 +3,11 @@ package it.corso.spb01.services;
 import it.corso.spb01.model.Ruolo;
 import it.corso.spb01.model.User;
 import it.corso.spb01.model.enumRuolo;
+import it.corso.spb01.payload.request.SignupRequest;
 import it.corso.spb01.repository.RuoloRepository;
 import it.corso.spb01.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,9 @@ public class UserService {
     @Autowired
     RuoloRepository roleRepository;
 
+    @Autowired
+    PasswordEncoder encoder;
+
     public UserService(){}
 
     public ArrayList<User> getUsers(){
@@ -32,6 +37,7 @@ public class UserService {
     public User getUserById(Long id){
         return userRepository.findById(id).orElse(null);
     }
+
     @Transactional
     public void setUserRoles(User user, Set<String> strRoles) throws Exception{
         Set<Ruolo> roles = new HashSet<>();
@@ -57,6 +63,62 @@ public class UserService {
         });
         user.setRoles(roles);
         userRepository.save(user);
+    }
+
+
+    public Boolean checkUserName(String nome){
+        if(userRepository.existsByName(nome)){
+            return false;
+        }
+        return true;
+    }
+
+    public Boolean checkUserMail(String mail){
+        if(userRepository.existsByEmail(mail)){
+            return false;
+        }
+        return true;
+    }
+
+    public void addNewBasicUser(SignupRequest signUpRequest){
+        // Create new user's account
+        User user = new User(signUpRequest.getUsername(),
+                signUpRequest.getEmail(),
+                encoder.encode(signUpRequest.getPassword()));
+
+        Set<String> strRoles = signUpRequest.getRole();
+        Set<Ruolo> roles = new HashSet<>();
+
+        if (strRoles == null) {
+            Ruolo userRole = roleRepository.findByName(enumRuolo.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            roles.add(userRole);
+        } else {
+            strRoles.forEach(role -> {
+                switch (role) {
+                    case "admin":
+                        Ruolo adminRole = roleRepository.findByName(enumRuolo.ROLE_ADMIN)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(adminRole);
+
+                        break;
+                    case "mod":
+                        Ruolo modRole = roleRepository.findByName(enumRuolo.ROLE_MODERATOR)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(modRole);
+
+                        break;
+                    default:
+                        Ruolo userRole = roleRepository.findByName(enumRuolo.ROLE_USER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(userRole);
+                }
+            });
+        }
+
+        user.setRoles(roles);
+        userRepository.save(user);
+        return;
     }
 
 }

@@ -11,6 +11,7 @@ import it.corso.spb01.repository.RuoloRepository;
 import it.corso.spb01.repository.UserRepository;
 import it.corso.spb01.security.jwt.JwtUtils;
 import it.corso.spb01.security.services.UserDetailsImpl;
+import it.corso.spb01.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -39,10 +40,12 @@ public class AuthController {
   UserRepository userRepository;
 
   @Autowired
-  RuoloRepository roleRepository;
+  UserService userService;
 
   @Autowired
-  PasswordEncoder encoder;
+  RuoloRepository roleRepository;
+
+
 
   @Autowired
   JwtUtils jwtUtils;
@@ -72,51 +75,14 @@ public class AuthController {
 
   @PostMapping("/signup")
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-    if (userRepository.existsByName(signUpRequest.getUsername())) {
+
+    if (userService.checkUserName(signUpRequest.getUsername())) {
       return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
     }
-
-    if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+    if (userService.checkUserMail(signUpRequest.getEmail())) {
       return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
     }
-
-    // Create new user's account
-    User user = new User(signUpRequest.getUsername(),
-                         signUpRequest.getEmail(),
-                         encoder.encode(signUpRequest.getPassword()));
-
-    Set<String> strRoles = signUpRequest.getRole();
-    Set<Ruolo> roles = new HashSet<>();
-
-    if (strRoles == null) {
-      Ruolo userRole = roleRepository.findByName(enumRuolo.ROLE_USER)
-          .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-      roles.add(userRole);
-    } else {
-      strRoles.forEach(role -> {
-        switch (role) {
-        case "admin":
-          Ruolo adminRole = roleRepository.findByName(enumRuolo.ROLE_ADMIN)
-              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-          roles.add(adminRole);
-
-          break;
-        case "mod":
-          Ruolo modRole = roleRepository.findByName(enumRuolo.ROLE_MODERATOR)
-              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-          roles.add(modRole);
-
-          break;
-        default:
-          Ruolo userRole = roleRepository.findByName(enumRuolo.ROLE_USER)
-              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-          roles.add(userRole);
-        }
-      });
-    }
-
-    user.setRoles(roles);
-    userRepository.save(user);
+    userService.addNewBasicUser(signUpRequest);
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
 
