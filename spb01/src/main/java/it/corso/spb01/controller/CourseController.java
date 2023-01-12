@@ -43,8 +43,13 @@ public class CourseController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteCourse(@PathVariable("id") long id) {
-        courseService.deleteCourse(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try {
+            courseService.deleteCourse(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
     @PutMapping("/update/{id}")

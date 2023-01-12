@@ -22,13 +22,6 @@ import java.util.*;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
-    @Autowired
-    CourseRepository courseRepository;
-    @Autowired
-    RuoloRepository roleRepository;
-
-    @Autowired
     UserService userService;
 
 

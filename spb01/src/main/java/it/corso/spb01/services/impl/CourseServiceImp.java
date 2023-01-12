@@ -32,11 +32,12 @@ public class CourseServiceImp implements CourseService {
         return curr;
     }
 
-    public void deleteCourse ( Long id ){
-        courseRepository.deleteById(id);
+    public void deleteCourse ( Long id ) throws RuntimeException {
+            courseRepository.deleteById(id);
     }
 
     public Course updateCourse( Long id, Course c ) throws  Exception {
+        //Course currCourse = courseRepository.findById(id).orElseThrow(() -> new Exception("TagId " + id + "not found"));
         Course currCourse = courseRepository.findById(id).orElseThrow(() -> new Exception("TagId " + id + "not found"));
         currCourse.setName(c.getName());
         courseRepository.save(currCourse);
