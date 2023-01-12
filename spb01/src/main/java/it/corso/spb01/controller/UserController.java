@@ -4,7 +4,6 @@ package it.corso.spb01.controller;
 import it.corso.spb01.model.Ruolo;
 import it.corso.spb01.model.User;
 import it.corso.spb01.model.Course;
-import it.corso.spb01.model.enumRuolo;
 import it.corso.spb01.payload.request.SignupRequest;
 import it.corso.spb01.payload.response.MessageResponse;
 import it.corso.spb01.repository.CourseRepository;
@@ -42,47 +41,40 @@ public class UserController {
         return new ResponseEntity<>(uArrayList, HttpStatus.OK);
     }
 
-
+/*
     @PostMapping("/insert")
     public ResponseEntity<User> createUser(@RequestBody User u) {
         User insertedU = userRepository.save(u);
         return new ResponseEntity<>(insertedU, HttpStatus.CREATED);
     }
-
-    @DeleteMapping("/delete/{id}")
+*/
+    @DeleteMapping("/delete/{id}") //UTILIZZA USER SERVICE
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") long id) {
-        userRepository.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
 
     @PostMapping("/insertCourse/{userId}/{courseId}")
     public ResponseEntity<User> addCourse(@PathVariable(value = "userId") Long userId, @PathVariable(value = "courseId") Long courseId) {
-        //prendi corso by id
-        Course courseToAdd = courseRepository.findById(courseId).orElse(null);
-        User choosenUser = userRepository.findById(userId).orElse(null);
-        if( courseToAdd != null && choosenUser != null){
-            choosenUser.addCourse(courseToAdd);
-            //courseToAdd.addUser(choosenUser);
-            //courseRepository.save(courseToAdd);
-            userRepository.save(choosenUser);
+        if(userService.addUserCourse(courseId,userId)){
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/getCourses/{userId}")
+    @GetMapping("/getCourses/{userId}")  //UTILIZZA USER SERVICE
     public ResponseEntity<Set<Course>> getCourses (@PathVariable(value = "userId") Long userId){
         Set<Course> courseArrayList;
-        User choosenUser = userRepository.findById(userId).orElse(null);
-        if (choosenUser == null) {
+        courseArrayList = userService.getUserCourses(userId);
+        if(courseArrayList == null){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        courseArrayList = choosenUser.getCourses();
         return new ResponseEntity<>(courseArrayList, HttpStatus.OK);
     }
 
+/*
     @PostMapping("/insertRoleToUser/{userId}")
     public ResponseEntity<User> addRole(@PathVariable(value = "userId") Long userId, @RequestBody Ruolo role) {
 
@@ -97,8 +89,8 @@ public class UserController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
-    @PostMapping("/insertRole2/{userId}")
+*/
+    @PostMapping("/insertRole2/{userId}") //UTILIZZA USER SERVICE
     public ResponseEntity<?> addRole2(@PathVariable(value = "userId") Long userId, @RequestBody SignupRequest signUpRequest) throws Exception {
 
         User user = userService.getUserById(userId);
@@ -112,14 +104,9 @@ public class UserController {
 
     }
 
-    @GetMapping("/getRoles/{userId}")
+    @GetMapping("/getRoles/{userId}") //UTILIZZA USER SERVICE
     public ResponseEntity<Set<Ruolo>> getRoles(@PathVariable(value = "userId") Long userId){
-        Set<Ruolo> roleArrayList;
-        User choosenUser = userRepository.findById(userId).orElse(null);
-        if (choosenUser == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        roleArrayList = choosenUser.getRoles();
+        Set<Ruolo> roleArrayList = userService.getUserRoles(userId);
         return new ResponseEntity<>(roleArrayList, HttpStatus.OK);
     }
 

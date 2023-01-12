@@ -1,7 +1,6 @@
 package it.corso.spb01.controller;
 
 import it.corso.spb01.model.Esame;
-import it.corso.spb01.model.User;
 import it.corso.spb01.services.EsameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,15 +15,17 @@ public class EsameController {
     @Autowired
     EsameService esameService;
 
-
-    @GetMapping("/getAll") //UTILIZZA USER SERVICE
+    @GetMapping("/getAll")
     public ResponseEntity<List<Esame>> getEsame(){
         List<Esame> esami = esameService.getAll();
         return new ResponseEntity<>(esami, HttpStatus.OK);
     }
-    @GetMapping("/getAllbyValutazione/{val}") //UTILIZZA USER SERVICE
+    @GetMapping("/getAllbyValutazione/{val}")
     public ResponseEntity<List<Esame>> getEsameByVal (@PathVariable("val") int val){
         List<Esame> esami = esameService.getAllbyValutazione(val);
+        if(esami.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         return new ResponseEntity<>(esami, HttpStatus.OK);
     }
 

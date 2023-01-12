@@ -1,17 +1,12 @@
 package it.corso.spb01.controller;
 
-import it.corso.spb01.model.Ruolo;
-import it.corso.spb01.model.User;
-import it.corso.spb01.model.enumRuolo;
 import it.corso.spb01.payload.request.LoginRequest;
 import it.corso.spb01.payload.request.SignupRequest;
 import it.corso.spb01.payload.response.MessageResponse;
 import it.corso.spb01.payload.response.UserInfoResponse;
-import it.corso.spb01.repository.RuoloRepository;
-import it.corso.spb01.repository.UserRepository;
 import it.corso.spb01.security.jwt.JwtUtils;
 import it.corso.spb01.security.services.UserDetailsImpl;
-import it.corso.spb01.services.UserService;
+import it.corso.spb01.services.impl.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -20,13 +15,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -37,14 +29,7 @@ public class AuthController {
   AuthenticationManager authenticationManager;
 
   @Autowired
-  UserRepository userRepository;
-
-  @Autowired
-  UserService userService;
-
-  @Autowired
-  RuoloRepository roleRepository;
-
+  UserServiceImp userService;
 
 
   @Autowired

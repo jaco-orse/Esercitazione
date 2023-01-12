@@ -1,15 +1,13 @@
 package it.corso.spb01.controller;
 
 import it.corso.spb01.model.Course;
-import it.corso.spb01.repository.CourseRepository;
+import it.corso.spb01.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/controllerCourse")
@@ -17,12 +15,11 @@ import java.util.Optional;
 public class CourseController {
 
     @Autowired
-    CourseRepository courseRepository;
+    CourseService courseService;
 
     @GetMapping("/getAll")
     public ResponseEntity<List<Course>> getCourses (){
-        List<Course> studentArrayList = new ArrayList<Course>();
-        courseRepository.findAll().forEach(studentArrayList::add);
+        List<Course> studentArrayList = courseService.getCourses();
         if (studentArrayList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -30,31 +27,35 @@ public class CourseController {
     }
 
     @GetMapping("/getById/{id}")
-    public ResponseEntity<Optional<Course>> getCourseById(@PathVariable("id") long id) {
-        Optional<Course> curr = courseRepository.findById(id);
+    public ResponseEntity<Course> getCourseById(@PathVariable("id") long id) {
+        Course curr = courseService.getCorseByID(id);
         //if(curr.isEmpty()){
         //  return new ResponseEntity<Optional<Course>>(HttpStatus.NO_CONTENT);
         //}
-        return new ResponseEntity<Optional<Course>>(curr, HttpStatus.OK);
+        return new ResponseEntity<Course>(curr, HttpStatus.OK);
     }
 
     @PostMapping("/insert")
     public ResponseEntity<Course> createCourse(@RequestBody Course corso) {
-        Course _corso = courseRepository.save(corso);
+        Course _corso = courseService.addCourse(corso);
         return new ResponseEntity<>(_corso, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<HttpStatus> deleteCourse(@PathVariable("id") long id) {
-        courseRepository.deleteById(id);
+        courseService.deleteCourse(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Course> updateCourse(@PathVariable("id") long id, @RequestBody Course newCourse) throws Exception {
-        Course currCourse = courseRepository.findById(id).orElseThrow(() -> new Exception("TagId " + id + "not found"));
-        currCourse.setName(newCourse.getName());
-        return new ResponseEntity<>(courseRepository.save(currCourse), HttpStatus.OK);
+    public ResponseEntity<Course> updateCourse(@PathVariable("id") long id, @RequestBody Course newCourse) {
+        try{
+            Course c = courseService.updateCourse(id,newCourse);
+            return new ResponseEntity<>(c, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
 
