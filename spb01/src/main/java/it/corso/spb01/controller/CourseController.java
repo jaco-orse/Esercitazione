@@ -3,6 +3,7 @@ package it.corso.spb01.controller;
 import it.corso.spb01.model.Course;
 import it.corso.spb01.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,17 +29,28 @@ public class CourseController {
 
     @GetMapping("/getById/{id}")
     public ResponseEntity<Course> getCourseById(@PathVariable("id") long id) {
-        Course curr = courseService.getCorseByID(id);
-        //if(curr.isEmpty()){
-        //  return new ResponseEntity<Optional<Course>>(HttpStatus.NO_CONTENT);
-        //}
-        return new ResponseEntity<Course>(curr, HttpStatus.OK);
+
+        try{
+            Course curr = courseService.getCorseByID(id);
+            //if(curr.isEmpty()){
+            //  return new ResponseEntity<Optional<Course>>(HttpStatus.NO_CONTENT);
+            //}
+            return new ResponseEntity<Course>(curr, HttpStatus.OK);
+        }catch (DataAccessException e) {
+            return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @PostMapping("/insert")
     public ResponseEntity<Course> createCourse(@RequestBody Course corso) {
-        Course _corso = courseService.addCourse(corso);
-        return new ResponseEntity<>(_corso, HttpStatus.CREATED);
+        try{
+            Course _corso = courseService.addCourse(corso);
+            return new ResponseEntity<>(_corso, HttpStatus.CREATED);
+        }catch (DataAccessException e) {
+            return new ResponseEntity<>( HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @DeleteMapping("/delete/{id}")
@@ -62,9 +74,6 @@ public class CourseController {
         }
 
     }
-
-
-
 
 
 }

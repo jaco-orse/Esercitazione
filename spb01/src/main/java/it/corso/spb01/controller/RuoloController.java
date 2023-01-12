@@ -3,6 +3,7 @@ package it.corso.spb01.controller;
 import it.corso.spb01.model.Ruolo;
 import it.corso.spb01.repository.RuoloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,20 +18,34 @@ public class RuoloController {
 
     @GetMapping("/getRoles")
     public ResponseEntity<ArrayList<Ruolo>> getRuoli() {
-        ArrayList<Ruolo> _roles = (ArrayList<Ruolo>) roleRepository.findAll();
-        return new ResponseEntity<>(_roles, HttpStatus.OK);
+        try{
+            ArrayList<Ruolo> _roles = (ArrayList<Ruolo>) roleRepository.findAll();
+            return new ResponseEntity<>(_roles, HttpStatus.OK);
+        }catch(DataAccessException e){
+            return  new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/insertRole")
     public ResponseEntity<Ruolo> createRuolo(@RequestBody Ruolo role) {
-        Ruolo _role = roleRepository.save(role);
-        return new ResponseEntity<Ruolo>(_role, HttpStatus.OK);
+        try {
+            Ruolo _role = roleRepository.save(role);
+            return new ResponseEntity<Ruolo>(_role, HttpStatus.CREATED);
+        }catch (DataAccessException e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @DeleteMapping("/deleteRole/{id}")
     public ResponseEntity<HttpStatus> deleteRuolo(@PathVariable long id) {
-        roleRepository.deleteById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try {
+            roleRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        catch (DataAccessException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/updateRole/{id}")

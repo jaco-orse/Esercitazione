@@ -3,6 +3,7 @@ package it.corso.spb01.controller;
 import it.corso.spb01.model.Esame;
 import it.corso.spb01.services.EsameService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +18,13 @@ public class EsameController {
 
     @GetMapping("/getAll")
     public ResponseEntity<List<Esame>> getEsame(){
-        List<Esame> esami = esameService.getAll();
-        return new ResponseEntity<>(esami, HttpStatus.OK);
+        try{
+            List<Esame> esami = esameService.getAll();
+            return new ResponseEntity<>(esami, HttpStatus.OK);
+        }catch(DataAccessException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
     @GetMapping("/getAllbyValutazione/{val}")
     public ResponseEntity<List<Esame>> getEsameByVal (@PathVariable("val") int val){
@@ -31,14 +37,24 @@ public class EsameController {
 
     @PostMapping("/insertEsame/{corsoId}")
     public ResponseEntity<?> createEsame(@PathVariable("corsoId") long corsoId, @RequestBody Esame e) {
-        esameService.insertExam(e,corsoId);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        try{
+            esameService.insertExam(e,corsoId);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }catch(DataAccessException exc){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteEsame(@PathVariable("id") long id) {
-        esameService.deleteEsame(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        try{
+            esameService.deleteEsame(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch(DataAccessException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
 }

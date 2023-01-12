@@ -11,6 +11,7 @@ import it.corso.spb01.repository.RuoloRepository;
 import it.corso.spb01.repository.UserRepository;
 import it.corso.spb01.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,8 +44,12 @@ public class UserController {
 */
     @DeleteMapping("/delete/{id}") //UTILIZZA USER SERVICE
     public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") long id) {
-        userService.deleteUser(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        try{
+            userService.deleteUser(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch(DataAccessException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 
@@ -91,16 +96,25 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         Set<String> strRoles = signUpRequest.getRole();
-        userService.setUserRoles(user,strRoles);
+        try{
+            userService.setUserRoles(user,strRoles);
+            return ResponseEntity.ok(new MessageResponse("oook"));
+        }catch(DataAccessException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
 
-        return ResponseEntity.ok(new MessageResponse("oook"));
 
     }
 
     @GetMapping("/getRoles/{userId}") //UTILIZZA USER SERVICE
     public ResponseEntity<Set<Ruolo>> getRoles(@PathVariable(value = "userId") Long userId){
-        Set<Ruolo> roleArrayList = userService.getUserRoles(userId);
-        return new ResponseEntity<>(roleArrayList, HttpStatus.OK);
+        try {
+            Set<Ruolo> roleArrayList = userService.getUserRoles(userId);
+            return new ResponseEntity<>(roleArrayList, HttpStatus.OK);
+        }
+        catch (DataAccessException e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 
