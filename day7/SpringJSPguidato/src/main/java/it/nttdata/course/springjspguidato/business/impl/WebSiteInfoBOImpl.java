@@ -32,6 +32,11 @@ public class WebSiteInfoBOImpl implements WebSiteInfoBO {
         return;
     }
 
+    public void deleteWebSiteInfo(Long id) throws DataAccessException{
+        webSiteInfoRepository.deleteById(id);
+        return;
+    }
+
 
 
 }

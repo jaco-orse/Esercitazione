@@ -9,10 +9,8 @@
 <body>
 
     <c:forEach items="${sites}" var="site">
-        <p>sito: ${site.getName()} , ${site.getDescription()}</p>
+        <p>sito: ${site.getName()} | ${site.getDescription()} | <a href="deleteInfo?id=${site.getId()}">elimina</a></p>
     </c:forEach>
-
-
 
 </body>
 </html>

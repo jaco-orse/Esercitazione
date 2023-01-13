@@ -41,4 +41,11 @@ public class WebSiteInfoController {
         webSiteInfoBO.insertWebSiteInfo(name,description);
         return new ModelAndView("/index.jsp");
     }
+
+    @GetMapping(path={"/deleteInfo"})
+    public ModelAndView deleteInfo(@RequestParam(name="id") String id){
+        Long l_id = Long.parseLong(id);
+        webSiteInfoBO.deleteWebSiteInfo(l_id);
+        return getSites();
+    }
 }
