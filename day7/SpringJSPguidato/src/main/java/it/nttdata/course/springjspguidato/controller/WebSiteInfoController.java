@@ -5,6 +5,8 @@ import it.nttdata.course.springjspguidato.model.WebSiteInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -26,5 +28,17 @@ public class WebSiteInfoController {
         // no try and catch perchè gestito da ExcemptionController
         List<WebSiteInfo> sites = webSiteInfoBO.getAll();
         return new ModelAndView("/sites.jsp","sites",sites);
+    }
+
+    @GetMapping(path={"/createSite"})
+    public ModelAndView getCreatePage(){
+        return new ModelAndView("/createSite.jsp");
+    }
+
+    @PostMapping(path={"/createSite"})
+    public ModelAndView addSite(@RequestParam(name = "name") String name, @RequestParam(name = "description") String description ){
+        // no try and catch perchè gestito da ExcemptionController
+        webSiteInfoBO.insertWebSiteInfo(name,description);
+        return new ModelAndView("/index.jsp");
     }
 }

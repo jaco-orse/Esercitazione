@@ -8,4 +8,5 @@ import java.util.List;
 public interface WebSiteInfoBO {
     public WebSiteInfo getWebSiteInfo() throws DataAccessException;
     public List<WebSiteInfo> getAll() throws DataAccessException;
+    public void insertWebSiteInfo(String name, String description) throws DataAccessException;
 }

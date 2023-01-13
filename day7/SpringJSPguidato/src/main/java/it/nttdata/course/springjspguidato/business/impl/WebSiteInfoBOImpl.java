@@ -24,6 +24,14 @@ public class WebSiteInfoBOImpl implements WebSiteInfoBO {
         return webSiteInfoRepository.findAll();
     }
 
+    public void insertWebSiteInfo(String name, String description) throws DataAccessException{
+        WebSiteInfo currInfo = new WebSiteInfo();
+        currInfo.setName(name);
+        currInfo.setDescription(description);
+        webSiteInfoRepository.save(currInfo);
+        return;
+    }
+
 
 
 }
