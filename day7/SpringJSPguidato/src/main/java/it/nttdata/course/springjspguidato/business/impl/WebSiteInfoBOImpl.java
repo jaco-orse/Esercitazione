@@ -7,15 +7,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class WebSiteInfoBOImpl implements WebSiteInfoBO {
     @Autowired
     WebSiteInfoRepository webSiteInfoRepository;
 
-    @Override
+
     public WebSiteInfo getWebSiteInfo() throws DataAccessException{
         return webSiteInfoRepository.findFirstByOrderByIdDesc();
         // return webSiteInfoRepository.findFirstByIdOrderByIdDesc();
     }
+
+    public List<WebSiteInfo> getAll() throws DataAccessException{
+        return webSiteInfoRepository.findAll();
+    }
+
+
 
 }

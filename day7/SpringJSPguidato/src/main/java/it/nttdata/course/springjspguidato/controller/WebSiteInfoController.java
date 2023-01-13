@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 public class WebSiteInfoController {
     @Autowired
@@ -14,11 +16,15 @@ public class WebSiteInfoController {
 
     @GetMapping(path={"/","/index"})
     public ModelAndView home(){
-        try{
-            WebSiteInfo webSiteInfo = webSiteInfoBO.getWebSiteInfo();
-            return new ModelAndView("/index.jsp","info",webSiteInfo);
-        } catch (Exception e){
-            return new ModelAndView();
-        }
+        // no try and catch perchè gestito da ExcemptionController
+        WebSiteInfo webSiteInfo = webSiteInfoBO.getWebSiteInfo();
+        return new ModelAndView("/index.jsp","info",webSiteInfo);
+    }
+
+    @GetMapping(path={"/sites"})
+    public ModelAndView getSites(){
+        // no try and catch perchè gestito da ExcemptionController
+        List<WebSiteInfo> sites = webSiteInfoBO.getAll();
+        return new ModelAndView("/sites.jsp","sites",sites);
     }
 }
