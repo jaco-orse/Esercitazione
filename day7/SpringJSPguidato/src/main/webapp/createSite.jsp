@@ -8,19 +8,21 @@
 </head>
 <body>
 <p> create your own site info</p>
-<form method="POST" action="/createSite">
-    <div>
-        <labe for="name">Name</labe>
-        <input type="text" name="name" id="name">
-    </div>
-    <div>
-        <labe for="description">Description</labe>
-        <input type="text" name="description" id="description">
-    </div>
-    <div>
-        <input type="submit" value="Send">
-    </div>
-</form>
-
+<fieldset>
+    <legend>create info form</legend>
+    <form method="POST" action="/createSite">
+        <div>
+            <labe for="name">Name</labe>
+            <input type="text" name="name" id="name">
+        </div>
+        <div>
+            <labe for="description">Description</labe>
+            <input type="text" name="description" id="description">
+        </div>
+        <div>
+            <input type="submit" value="Send">
+        </div>
+    </form>
+</fieldset>
 </body>
 </html>

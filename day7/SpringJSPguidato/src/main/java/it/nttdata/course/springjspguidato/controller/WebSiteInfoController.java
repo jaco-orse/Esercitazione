@@ -46,7 +46,10 @@ public class WebSiteInfoController {
     public ModelAndView deleteInfo(@RequestParam(name="id") String id){
         Long l_id = Long.parseLong(id);
         webSiteInfoBO.deleteWebSiteInfo(l_id);
-        return getSites();
+        //return getSites();
+        //or
+        List<WebSiteInfo> sites = webSiteInfoBO.getAll();
+        return new ModelAndView("/sites.jsp","sites",sites);
     }
 
     @GetMapping(path={"/updateInfo"})
@@ -63,7 +66,10 @@ public class WebSiteInfoController {
             @RequestParam(name = "id") String id){
         Long l_id = Long.parseLong(id);
         webSiteInfoBO.updateInfo(name,description,l_id);
-        return getSites();
+        //return getSites();
+        //or
+        List<WebSiteInfo> sites = webSiteInfoBO.getAll();
+        return new ModelAndView("/sites.jsp","sites",sites);
     }
 
 }
