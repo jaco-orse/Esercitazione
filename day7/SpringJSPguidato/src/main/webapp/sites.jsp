@@ -9,7 +9,11 @@
 <body>
 
     <c:forEach items="${sites}" var="site">
-        <p>sito: ${site.getName()} | ${site.getDescription()} | <a href="deleteInfo?id=${site.getId()}">elimina</a></p>
+        <p>
+            sito: ${site.getName()} | ${site.getDescription()} |
+            <a href="deleteInfo?id=${site.getId()}">elimina</a> |
+            <a href="updateInfo?id=${site.getId()}">modifica</a> |
+        </p>
     </c:forEach>
 
 </body>

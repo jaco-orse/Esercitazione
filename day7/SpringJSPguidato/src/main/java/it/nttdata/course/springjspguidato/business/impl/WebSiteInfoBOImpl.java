@@ -37,6 +37,17 @@ public class WebSiteInfoBOImpl implements WebSiteInfoBO {
         return;
     }
 
+    public WebSiteInfo getById(Long id){
+        return webSiteInfoRepository.findById(id).orElseThrow();
+    }
+
+    public void updateInfo(String name, String description, Long id){
+        WebSiteInfo info = webSiteInfoRepository.findById(id).orElseThrow();
+        info.setName(name);
+        info.setDescription(description);
+        webSiteInfoRepository.save(info);
+    }
+
 
 
 }

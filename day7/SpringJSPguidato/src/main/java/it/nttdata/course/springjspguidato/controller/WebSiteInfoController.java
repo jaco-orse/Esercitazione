@@ -48,4 +48,22 @@ public class WebSiteInfoController {
         webSiteInfoBO.deleteWebSiteInfo(l_id);
         return getSites();
     }
+
+    @GetMapping(path={"/updateInfo"})
+    public ModelAndView getSiteInfo(@RequestParam(name = "id") String id){
+        Long l_id = Long.parseLong(id);
+        WebSiteInfo currInfo = webSiteInfoBO.getById(l_id);
+        return new ModelAndView("/updateInfo.jsp","currInfo",currInfo);
+    }
+
+    @PostMapping(path={"/updateInfo"})
+    public ModelAndView updateSiteInfo(
+            @RequestParam(name = "name") String name,
+            @RequestParam(name = "description") String description,
+            @RequestParam(name = "id") String id){
+        Long l_id = Long.parseLong(id);
+        webSiteInfoBO.updateInfo(name,description,l_id);
+        return getSites();
+    }
+
 }
