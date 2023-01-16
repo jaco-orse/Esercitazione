@@ -17,7 +17,8 @@
     </style>
 </head>
 <body>
-
+    <jsp:include page="navbar.jsp" />
+    <br>
     <table>
         <thead>
         <tr>

@@ -7,6 +7,7 @@
     <title>SITES</title>
 </head>
 <body>
+<jsp:include page="navbar.jsp" />
 <p> create your own site info</p>
 <fieldset>
     <legend>create info form</legend>

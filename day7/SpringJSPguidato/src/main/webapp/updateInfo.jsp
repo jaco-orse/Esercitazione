@@ -7,6 +7,7 @@
     <title>SITES</title>
 </head>
 <body>
+<jsp:include page="navbar.jsp" />
 <p>Update site info</p>
 <fieldset>
     <legend>update info form</legend>

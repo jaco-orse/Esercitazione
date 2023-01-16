@@ -8,14 +8,7 @@
 </head>
 <body>
     <h1>SpringJSP esercizio guidato</h1>
-    <h2>INDEX Page</h2>
-    <p>Last info name: ${info.getName()}</p>
-
-    <p>choose an action</p>
-    <dl>
-        <dd><a href="/sites">see all sites</a></dd>
-        <dd><a href="/createSite">create a site</a></dd>
-    </dl>
-
+    <jsp:include page="navbar.jsp" />
+    <p>Last inserted info name: ${info.getName()}</p>
 </body>
 </html>
