@@ -7,8 +7,8 @@
     <title>SITES</title>
 </head>
 <body>
-    <h1>INDEX Page</h1>
-    <h1>INDEX Page</h1>
+    <h1>SpringJSP esercizio guidato</h1>
+    <h2>INDEX Page</h2>
     <p>Last info name: ${info.getName()}</p>
 
     <p>choose an action</p>
