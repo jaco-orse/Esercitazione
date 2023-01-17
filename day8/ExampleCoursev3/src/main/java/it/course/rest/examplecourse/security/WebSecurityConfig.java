@@ -1,8 +1,8 @@
-package it.corso.spb01.security;
+package it.course.rest.examplecourse.security;
 
-import it.corso.spb01.security.jwt.AuthEntryPointJwt;
-import it.corso.spb01.security.jwt.AuthTokenFilter;
-import it.corso.spb01.security.services.UserDetailsServiceImpl;
+import it.course.rest.examplecourse.security.jwt.AuthEntryPointJwt;
+import it.course.rest.examplecourse.security.jwt.AuthTokenFilter;
+import it.course.rest.examplecourse.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -40,10 +40,8 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
   @Bean
   public DaoAuthenticationProvider authenticationProvider() {
       DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-       
       authProvider.setUserDetailsService(userDetailsService);
       authProvider.setPasswordEncoder(passwordEncoder());
-   
       return authProvider;
   }
   
@@ -56,16 +54,15 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
-  
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
     httpSecurity.cors().and().csrf().disable()
         .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
         .authorizeRequests().requestMatchers("/api/auth/**").permitAll()
-            .requestMatchers("/controllerCourse/**").hasRole("ADMIN")
-            //.requestMatchers("/controllerUser/insertRole2/**").hasRole("ADMIN")
-
+            .requestMatchers("api/user/**").permitAll()
+        .requestMatchers("/api/course/**").hasRole("MODERATOR")
+            .requestMatchers("/api/course/**").hasRole("ADMIN")
         .anyRequest().authenticated();
     
     httpSecurity.authenticationProvider(authenticationProvider());

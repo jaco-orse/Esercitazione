@@ -2,6 +2,8 @@ package it.corso.spb01.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -18,6 +20,16 @@ public class Course {
     @Column(name = "name")
     private String name;
 
+
+    @Getter
+    @Setter
+    @Lob @Basic(fetch = FetchType.LAZY)
+    @Column(length=100000)
+    private byte[] data;
+
+    @Getter
+    @Setter
+    private String type;
 
     @ManyToMany(mappedBy = "courses")
     @JsonIgnore

@@ -7,8 +7,11 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/controllerCourse")
@@ -73,6 +76,20 @@ public class CourseController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
+    }
+
+    @PostMapping("/upload/{id}")
+    public ResponseEntity<Map<String,String>> uploadFile(@PathVariable Long id , @RequestParam("file") MultipartFile data) {
+        try {
+            courseService.uploadFile(id,data);
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        } catch (Exception e) {
+            Map<String,String> map = new HashMap<>();
+            String message = "Non posso caricare il file: " + data.getOriginalFilename();
+            map.put("Error",message);
+            return new ResponseEntity<>(map, HttpStatus.EXPECTATION_FAILED);
+
+        }
     }
 
 

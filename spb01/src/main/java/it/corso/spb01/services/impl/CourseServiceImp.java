@@ -5,7 +5,9 @@ import it.corso.spb01.repository.CourseRepository;
 import it.corso.spb01.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +44,14 @@ public class CourseServiceImp implements CourseService {
         currCourse.setName(c.getName());
         courseRepository.save(currCourse);
         return currCourse;
+    }
+
+
+    public void uploadFile(Long id, MultipartFile data) throws IOException {
+        Course _course = courseRepository.getReferenceById(id);
+        _course.setData(data.getBytes());
+        _course.setType(data.getContentType());
+        courseRepository.save(_course);
     }
 
 }
