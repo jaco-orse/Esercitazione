@@ -92,7 +92,7 @@ public class CourseController {
         }
     }
 
-    @DeleteMapping("/deleteFile/{id}")
+    @PutMapping("/deleteFile/{id}")
     public ResponseEntity<String> deleteFile(@PathVariable Long id){
         try{
             courseService.deleteFile(id);
