@@ -13,4 +13,6 @@ public interface CourseService {
     public void deleteCourse ( Long id );
     public Course updateCourse( Long id, Course c ) throws  Exception;
     public void uploadFile(Long id, MultipartFile data) throws IOException;
+
+    public void deleteFile(Long id);
 }

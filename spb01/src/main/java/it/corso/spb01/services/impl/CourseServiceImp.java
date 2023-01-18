@@ -54,4 +54,13 @@ public class CourseServiceImp implements CourseService {
         courseRepository.save(_course);
     }
 
+
+    public void deleteFile(Long id) {
+        Course _course = courseRepository.getReferenceById(id);
+        _course.setData(null);
+        _course.setType(null);
+        courseRepository.save(_course);
+        return;
+    }
+
 }

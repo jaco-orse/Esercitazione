@@ -92,6 +92,17 @@ public class CourseController {
         }
     }
 
+    @DeleteMapping("/deleteFile/{id}")
+    public ResponseEntity<String> deleteFile(@PathVariable Long id){
+        try{
+            courseService.deleteFile(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            String message = "Non posso eliminare il file"+e.getMessage();
+            return new ResponseEntity<>(message, HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
 
 }
 
