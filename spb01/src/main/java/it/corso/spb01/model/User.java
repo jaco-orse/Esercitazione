@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 import java.util.HashSet;
 import java.util.Set;
 

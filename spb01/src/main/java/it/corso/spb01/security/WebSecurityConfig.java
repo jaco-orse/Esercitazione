@@ -66,7 +66,7 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
             .requestMatchers("/controllerCourse/**").hasRole("ADMIN")
             //.requestMatchers("/controllerUser/insertRole2/**").hasRole("ADMIN")
 
-        .anyRequest().authenticated();
+        .anyRequest().permitAll();
     
     httpSecurity.authenticationProvider(authenticationProvider());
 
